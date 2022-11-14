@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>Encrypt data</title>
+        <link rel="stylesheet" href="/static/css/styles.css">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul class="navbar">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/eSign">E-sign</a></li>
+                    <li><a href="/encrypt_data">Data sharing</a></li>
+                    <li><a href="/share_files">File sharing</a></li>
+
+                    {% if param == 0 %}
+                        <li><a href="/signIn" class="signIn">Sign In</a></li>   
+                    {%  elif param == 1 %}
+                        <li><a href="/signOut" class="link1">Sign Out</a></li>
+                    {% endif %}
+
+                </ul>
+            </nav>
+        </header>
+        <h1>RSA Data Encryption</h1> <br>
+        <div class = "message">
+            <p>Once you generated a pair of keys for 2 users it will be saved in our database.</p>
+            <p>To encrypt or decrypt enter username of who made viceversa action.</p>
+            <hr style="margin-left: 15%; margin-right: 15%;">
+        </div>
+        <div class="eSign">
+            <form method="POST">
+                <input type="text" name="userPair" class="input_field" style="display: block;" placeholder="Your pair-user">
+                <input type="submit" name="keygen" style="font-size: 25pt;" class="btn1" value="Generate key pair!">
+            </form>
+        </div>
+        <hr style="margin-left: 15%; margin-right: 15%;">
+        <div class="eSign">
+            <form method="POST" enctype="multipart/form-data">
+                <input type="text" name="pair_user" class="input_field" style="display: block;" placeholder="Your pair-user">
+                <input type="file" name="file" class="file_upload" placeholder="File with data to encrypt">
+                <input type="submit" name="encrypt" style="font-size: 20pt; display: flex;" class="btn2" value="Encrypt!">
+                <input type="submit" name="decrypt" style="font-size: 20pt; display: flex;" class="btn2" value="Decrypt!">
+            </form>
+        </div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    {% if param == 0 %}
+                    <p class='alert_msg'>{{ msg }}</p>
+                    {% elif param == 1 %}
+                    <p class='welcome_msg'>{{ msg }}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </body>
+    <script justify-content: center; src="static/js/py-script.js"></script>
+</html>

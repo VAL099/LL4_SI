@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <title>E-sign</title>
+        <link rel="stylesheet" href="/static/css/styles.css">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul class="navbar">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/eSign">E-sign</a></li>
+                    <li><a href="/encrypt_data">Data sharing</a></li>
+                    <li><a href="/share_files">File sharing</a></li>
+
+                    {% if param == 0 %}
+                        <li><a href="/signIn" class="signIn">Sign In</a></li>   
+                    {%  elif param == 1 %}
+                        <li><a href="/signOut" class="link1">Sign Out</a></li>
+                    {% endif %}
+
+                </ul>
+            </nav>
+        </header>
+        <h1>Share encrypted files</h1> <br>
+        <div class = "message">
+            <hr style="margin-left: 15%; margin-right: 15%;">
+        </div>
+        <div class="shareFiles">
+            <form method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" class="file_upload" style="display: block;" placeholder="Upload document you want to use!">
+                <input type="text" name="key" class="input_field" style="margin: 0 auto; display: block;" placeholder="Key 8 digits!">
+                <!-- <input type="text" name="consignee" class="input_field" style="margin: 0 auto; display: block;" placeholder="Email where to send!"> -->
+                <input type="submit" name = "encode" style="font-size: 20pt; display: flex;" class="btn2" value="ENCODE!">
+                <input type="submit" name = "decode" style="font-size: 20pt; display: flex;" class="btn2" value="DECODE!">
+            </form>
+        </div>
+        <br>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    {% if param == 0 %}
+                    <p class='alert_msg'>{{ msg }}</p>
+                    {% elif param == 1 %}
+                    <p class='welcome_msg'>{{ msg }}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </body>
+
+    <script justify-content: center; src="static/js/py-script.js"></script>
+</html>

@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>E-sign</title>
+        <link rel="stylesheet" href="/static/css/styles.css">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul class="navbar">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/eSign">E-sign</a></li>
+                    <li><a href="/encrypt_data">Data sharing</a></li>
+                    <li><a href="/share_files">File sharing</a></li>
+
+                    {% if param == 0 %}
+                        <li><a href="/signIn" class="signIn">Sign In</a></li>   
+                    {%  elif param == 1 %}
+                        <li><a href="/signOut" class="link1">Sign Out</a></li>
+                    {% endif %}
+
+                </ul>
+            </nav>
+        </header>
+        <h1>Apply eSign</h1> <br>
+        <div class = "message">
+            <p>Once you generated a certificate it will be saved in our database.</p>
+            <p>The next time you will be able to sign a document without generating any certificate.</p>
+            <p>Good luck!</p>
+            <hr style="margin-left: 15%; margin-right: 15%;">
+        </div>
+        <div>
+            <form action="/certificate_generation" >
+                <input type="submit" style="font-size: 25pt;" class="btn1" value="Create a certificate!">
+            </form>
+        </div>
+        <div class="eSign">
+            <form method="POST" enctype="multipart/form-data">
+                <input type="text" name="pg" class="input_field" style="display: block;" placeholder="Page where to sign">
+                <input type="file" name="file" class="file_upload" placeholder="upload document you want to sign!">
+                <input type="submit" style="font-size: 20pt;" class="btn2" value="Sign!">
+            </form>
+        </div>
+        <div>
+            <form action="/get_public_certificate" >
+                <input type="submit" style="font-size: 25pt;" class="btn1" value="Get public certificate!">
+            </form>
+        </div>
+        <br>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    {% if param == 0 %}
+                    <p class='alert_msg'>{{ msg }}</p>
+                    {% elif param == 1 %}
+                    <p class='welcome_msg'>{{ msg }}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </body>
+
+    <script justify-content: center; src="static/js/py-script.js"></script>
+</html>
